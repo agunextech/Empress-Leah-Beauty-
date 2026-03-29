@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empress Leah Beauty - Glow Like an Empress | v9</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@200;300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAF6F2;--bg2:#FDF9F6;--bg3:#FFFFFF;--bg4:#F5EEE8;--bg5:#EFE5DC;
+  --rose:#C2185B;--rose2:#E91E8C;--rose3:#F06292;--rose4:#F8BBD9;--rose5:#FCE4EC;
+  --gold:#B8860B;--gold2:#D4A017;--gold3:#E8C547;--gold4:#F5DEB3;
+  --plum:#6A0572;--plum2:#9C27B0;
+  --tx:#2C1810;--tx2:#5C3D2E;--tx3:#9E7B6B;--tx4:#C4A882;
+  --bd:rgba(194,24,91,0.18);--bd2:rgba(194,24,91,0.08);
+  --shadow:rgba(44,24,16,0.12);
+  --rg:rgba(194,24,91,0.1);--rd:rgba(194,24,91,0.06);
+  --gg:rgba(184,134,11,0.12);--gd:rgba(184,134,11,0.06);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--tx);overflow-x:hidden;}
+
+/* LOADER */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--bg2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity 0.4s,visibility 0.4s;}
+#loader.gone{opacity:0;visibility:hidden;pointer-events:none;}
+.ld-wrap{width:168px;height:168px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;}
+.ld-wrap::before{content:'';position:absolute;inset:0;border-radius:50%;padding:2px;background:linear-gradient(135deg,var(--rose),var(--gold2),var(--rose3),var(--rose));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spinR 2.2s linear infinite;}
+@keyframes spinR{to{transform:rotate(360deg);}}
+.ld-wrap img{width:130px;object-fit:contain;z-index:1;}
+.ld-name{font-family:'Pinyon Script',cursive;font-size:40px;background:linear-gradient(135deg,var(--rose),var(--gold2),var(--rose3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ld-tag{font-size:9px;letter-spacing:7px;color:var(--tx3);text-transform:uppercase;margin-top:-14px;}
+.ld-bar{width:182px;height:2px;background:rgba(44,24,16,0.08);border-radius:2px;overflow:hidden;}
+.ld-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--rose),var(--gold2),var(--rose3));animation:ldf 0.7s ease forwards;}
+@keyframes ldf{to{width:100%;}}
+
+/* NAV - always horizontal on all screen sizes */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:76px;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  padding:0 40px;
+  gap:16px;
+  background:rgba(250,246,242,0.97);
+  backdrop-filter:blur(28px);
+  border-bottom:2px solid rgba(194,24,91,0.15);
+  box-shadow:0 4px 30px rgba(44,24,16,0.1);
+  transition:all .3s;
+}
+nav.scrolled{box-shadow:0 6px 40px rgba(44,24,16,0.14);border-bottom-color:rgba(194,24,91,0.25);}
+.nav-logo{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.nav-logo img{height:46px;object-fit:contain;}
+.nav-logo-txt{font-family:'Pinyon Script',cursive;font-size:26px;background:linear-gradient(135deg,var(--rose),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:none;}
+.nav-links{display:flex;align-items:center;justify-content:center;gap:4px;list-style:none;}
+.nav-links li a{
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;
+  color:var(--tx2);text-decoration:none;
+  padding:10px 14px;border-radius:8px;display:block;white-space:nowrap;
+  transition:all .25s;position:relative;
+}
+.nav-links li a::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:0;height:2px;background:linear-gradient(90deg,var(--rose),var(--gold2),var(--rose3));border-radius:2px;transition:width .3s;box-shadow:0 0 8px var(--am);}
+.nav-links li a:hover{color:var(--rose);background:rgba(194,24,91,0.06);}
+.nav-links li a:hover::after{width:70%;}
+.nav-links li.adm a{color:var(--rose);border:2px solid rgba(194,24,91,0.35);border-radius:30px;padding:8px 18px;background:rgba(194,24,91,0.06);}
+.nav-links li.adm a:hover{background:rgba(194,24,91,0.12);border-color:var(--rose);color:var(--rose);}
+.nav-links li.adm a::after{display:none;}
+.nav-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.cart-btn{position:relative;background:none;border:none;cursor:pointer;color:var(--tx2);padding:6px;transition:color .3s;}
+.cart-btn:hover{color:var(--am2);}
+.cart-badge{position:absolute;top:-5px;right:-7px;background:linear-gradient(135deg,var(--rose),var(--rose2));color:#fff;font-size:9px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 10px rgba(194,24,91,0.4);}
+/* HAMBURGER NEVER SHOWN - always horizontal */
+.ham{display:none !important;}
+.mob{display:none !important;}
+
+/* RESPONSIVE - shrink text, never hide links */
+@media(max-width:1024px){nav{padding:0 20px;gap:8px;}.nav-links li a{padding:8px 9px;font-size:9.5px;letter-spacing:1.5px;}}
+@media(max-width:768px){nav{padding:0 12px;gap:4px;height:64px;}.nav-links{gap:0;}.nav-links li a{padding:6px 7px;font-size:8.5px;letter-spacing:1px;}.nav-links li.adm a{padding:5px 9px;font-size:8px;}.nav-logo img{height:38px;}}
+@media(max-width:500px){nav{height:56px;padding:0 6px;}.nav-links li a{padding:5px 5px;font-size:7.5px;letter-spacing:0.5px;}.nav-links li.adm a{padding:4px 7px;}.nav-logo img{height:30px;}.cart-btn svg{width:17px;height:17px;}}
+@media(max-width:820px){.about-grid,.cgrid{grid-template-columns:1fr;}.about-frame{display:none;}.nbanner{flex-direction:column;}#contact .cgrid{gap:24px;}#contact input,#contact textarea,#contact select{font-size:16px;}}
+@media(max-width:540px){.grid{grid-template-columns:1fr 1fr;gap:13px;}.cbody{padding:14px 11px;}.cnm{font-size:13px;}.cacts{flex-direction:column;}.hero-btns{flex-direction:column;align-items:center;}.stats{gap:14px;}.legalbox{padding:26px 18px;}.mpbox{padding:36px 22px;}.loginbox{padding:40px 28px;}}
+
+/* HERO */
+.ptcl{position:absolute;inset:0;pointer-events:none;}
+.ptcl span{position:absolute;border-radius:50%;background:var(--rose3);animation:pt 6s ease-in-out infinite;}
+.ptcl span:nth-child(1){width:3px;height:3px;top:18%;left:12%;animation-delay:0s;opacity:.4;}
+.ptcl span:nth-child(2){width:2px;height:2px;top:62%;left:82%;animation-delay:1.2s;opacity:.3;}
+.ptcl span:nth-child(3){width:3px;height:3px;top:78%;left:22%;animation-delay:2.1s;opacity:.45;background:var(--gold2);}
+.ptcl span:nth-child(4){width:4px;height:4px;top:30%;left:72%;animation-delay:.6s;opacity:.25;}
+.ptcl span:nth-child(5){width:2px;height:2px;top:55%;left:48%;animation-delay:1.8s;opacity:.35;}
+@keyframes pt{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-18px) scale(1.4);}}
+.orn{display:flex;align-items:center;gap:16px;margin-bottom:48px;animation:fup 1s ease .8s both;}
+.orn::before{content:'';flex:1;max-width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold2));}
+.orn::after{content:'';flex:1;max-width:80px;height:1px;background:linear-gradient(90deg,var(--gold2),transparent);}
+.orn-gem{width:8px;height:8px;background:var(--gold2);transform:rotate(45deg);box-shadow:0 0 14px rgba(212,160,23,0.6);}
+.hero-btns{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;animation:fup 1s ease .9s both;}
+@keyframes fup{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.shint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;opacity:.3;animation:sh 2s ease infinite;}
+@keyframes sh{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(7px);}}
+.shint span{font-size:9px;letter-spacing:3px;color:var(--tx2);}
+
+/* BUTTONS */
+.btn-p{background:linear-gradient(135deg,var(--rose),var(--rose2),var(--rose3));color:#fff;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;padding:16px 40px;border-radius:50px;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .3s;font-weight:700;box-shadow:0 6px 28px rgba(194,24,91,0.38);}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(194,24,91,0.5);}
+.btn-o{background:transparent;color:var(--gold);border:2px solid rgba(184,134,11,0.45);font-family:'Jost',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;padding:14px 40px;border-radius:50px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .3s;font-weight:600;}
+.btn-o:hover{background:var(--gd);border-color:var(--gold2);transform:translateY(-3px);}
+
+/* PRODUCT SLIDER */
+.slider-section{background:var(--bg4);padding:50px 0 38px;border-bottom:1px solid var(--bd);}
+.slider-hdr{max-width:1200px;margin:0 auto 26px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;}
+.slider-hdr h2{font-family:'Playfair Display',serif;font-size:22px;color:var(--tx);}
+.slider-hdr h2 span{background:linear-gradient(135deg,var(--am),var(--am3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.slider-controls{display:flex;gap:10px;}
+.sl-btn{width:42px;height:42px;border-radius:50%;background:rgba(194,24,91,0.08);border:1.5px solid rgba(194,24,91,0.25);color:var(--rose);cursor:pointer;font-size:22px;display:flex;align-items:center;justify-content:center;transition:all .3s;line-height:1;}
+.sl-btn:hover{background:rgba(194,24,91,0.15);border-color:var(--rose);box-shadow:0 0 14px rgba(194,24,91,0.2);}
+.slider-track-wrap{overflow:hidden;padding:4px 28px 8px;}
+.slider-track{display:flex;gap:20px;transition:transform 0.45s cubic-bezier(.77,0,.18,1);}
+.sl-card{flex-shrink:0;width:210px;background:var(--bg3);border-radius:16px;border:1px solid var(--bd2);overflow:hidden;cursor:pointer;transition:all .35s;position:relative;}
+.sl-card:hover{transform:translateY(-6px);border-color:rgba(194,24,91,0.25);box-shadow:0 16px 40px rgba(44,24,16,0.15);}
+.sl-card-img{width:100%;height:155px;background:linear-gradient(135deg,var(--rose5),var(--bg4));display:flex;align-items:center;justify-content:center;font-size:50px;position:relative;overflow:hidden;}
+.sl-card-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.sl-card-body{padding:13px;}
+.sl-card-cat{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--rose);margin-bottom:4px;}
+.sl-card-name{font-family:'Playfair Display',serif;font-size:13px;color:var(--tx);margin-bottom:8px;line-height:1.35;min-height:36px;}
+.sl-card-price{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;background:linear-gradient(135deg,var(--rose),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;}
+.sl-card-btn{width:100%;background:linear-gradient(135deg,var(--rose),var(--rose2));color:#fff;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:10px;border:none;border-radius:28px;cursor:pointer;font-family:'Jost',sans-serif;font-weight:700;transition:all .3s;}
+.sl-card-btn:hover{box-shadow:0 4px 16px rgba(194,24,91,0.4);transform:scale(1.02);}
+.sl-dots{display:flex;gap:8px;justify-content:center;margin-top:20px;}
+.sl-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,149,0,0.2);border:none;cursor:pointer;transition:all .3s;padding:0;}
+.sl-dot.on{background:var(--rose);width:24px;border-radius:4px;box-shadow:0 0 8px rgba(194,24,91,0.4);}
+
+/* TICKER */
+.ticker{background:linear-gradient(90deg,var(--rose5),var(--bg4),var(--rose5));padding:14px 0;overflow:hidden;border-top:1px solid rgba(194,24,91,0.15);border-bottom:1px solid rgba(194,24,91,0.15);}
+.t-track{display:flex;gap:48px;white-space:nowrap;animation:tick 28s linear infinite;}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.t-item{flex-shrink:0;display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--tx2);}
+.t-dot{width:5px;height:5px;background:var(--rose);border-radius:50%;box-shadow:0 0 6px rgba(194,24,91,0.5);}
+
+/* SECTION LABELS */
+.slbl{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--rose);text-align:center;margin-bottom:12px;}
+.sh{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,50px);font-weight:400;color:var(--tx);text-align:center;line-height:1.2;margin-bottom:16px;}
+.sh em{background:linear-gradient(135deg,var(--rose),var(--rose3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:italic;}
+.srule{width:52px;height:2px;background:linear-gradient(90deg,var(--rose),var(--gold2),var(--rose3));margin:0 auto 52px;border-radius:2px;box-shadow:0 0 8px rgba(255,149,0,.35);}
+
+/* SHOP */
+.fbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:44px;}
+.flt{font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:10px 22px;border-radius:40px;border:1.5px solid rgba(194,24,91,0.2);background:transparent;color:var(--tx3);cursor:pointer;transition:all .3s;font-family:'Jost',sans-serif;}
+.flt.on,.flt:hover{background:linear-gradient(135deg,var(--rose),var(--rose2));color:#fff;border-color:transparent;font-weight:700;box-shadow:0 4px 16px rgba(194,24,91,0.35);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:26px;}
+.card{background:var(--bg3);border-radius:20px;overflow:hidden;border:1px solid var(--bd2);transition:all .4s;position:relative;box-shadow:0 4px 20px var(--shadow);}
+.card:hover{transform:translateY(-7px);box-shadow:0 20px 50px rgba(44,24,16,0.16);border-color:rgba(194,24,91,0.25);}
+.cbdg{position:absolute;top:14px;left:14px;z-index:2;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:30px;font-family:'Jost',sans-serif;font-weight:600;}
+.bbest{background:linear-gradient(135deg,var(--rose),var(--rose2));color:#fff;}
+.blim{background:var(--bg4);color:var(--plum);border:1px solid rgba(106,5,114,0.25);}
+.bnew{background:transparent;color:var(--gold);border:1.5px solid var(--gold2);}
+.cimg{width:100%;padding-top:88%;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--rose5),var(--bg4));}
+.cimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.cph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;}
+.cph .cbr{font-size:8px;letter-spacing:3px;color:var(--rose3);text-transform:uppercase;opacity:.9;}
+.cph .cic{font-size:54px;}
+.cbody{padding:20px;}
+.ccat{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--rose);margin-bottom:6px;}
+.cnm{font-family:'Playfair Display',serif;font-size:16px;color:var(--tx);margin-bottom:8px;line-height:1.35;}
+.cdesc{font-size:12px;color:var(--tx3);line-height:1.75;margin-bottom:14px;}
+.cprow{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.cprice{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;background:linear-gradient(135deg,var(--rose),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cold{font-size:13px;color:rgba(138,122,101,.45);text-decoration:line-through;}
+.cacts{display:flex;gap:9px;}
+.btn-add{flex:1;background:linear-gradient(135deg,var(--rose),var(--rose2));color:#fff;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:12px;border:none;border-radius:40px;cursor:pointer;transition:all .3s;font-family:'Jost',sans-serif;font-weight:700;}
+.btn-add:hover{transform:scale(1.03);box-shadow:0 6px 20px rgba(194,24,91,0.4);}
+.btn-wa{background:transparent;border:1.5px solid #25D366;border-radius:40px;padding:10px 13px;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;}
+.btn-wa:hover{background:rgba(37,211,102,.1);}
+.btn-wish{background:transparent;border:1.5px solid rgba(194,24,91,0.22);border-radius:40px;padding:10px 12px;cursor:pointer;transition:all .3s;color:var(--rose3);font-size:14px;}
+.btn-wish:hover,.btn-wish.wl{background:rgba(194,24,91,0.08);border-color:var(--rose);color:var(--rose);}
+
+/* NEW ARRIVALS */
+.nbanner{background:linear-gradient(135deg,var(--rose5),var(--bg4));border:1px solid rgba(194,24,91,0.15);border-radius:20px;padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:28px;margin-bottom:60px;position:relative;overflow:hidden;}
+.nbanner::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--rose),var(--gold2),transparent);}
+.nbanner h3{font-family:'Playfair Display',serif;font-size:26px;color:var(--tx);margin-bottom:10px;}
+.nbanner p{font-size:14px;color:var(--tx2);line-height:1.7;}
+.nb-badge{display:inline-block;background:linear-gradient(135deg,var(--rose),var(--rose2));color:#fff;font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:7px 18px;border-radius:30px;margin-bottom:14px;font-weight:700;}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+.about-frame{aspect-ratio:1;background:linear-gradient(135deg,var(--rose5),var(--bg4));border-radius:24px;border:1px solid rgba(194,24,91,0.15);display:flex;align-items:center;justify-content:center;font-size:90px;position:relative;overflow:hidden;}
+.about-frame::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(194,24,91,0.05),transparent 70%);}
+.about-frame::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--rose3),transparent);}
+.about-text .slbl,.about-text .sh{text-align:left;}
+.about-text .srule{margin:0 0 24px;}
+.about-text p{font-size:15px;line-height:1.95;color:var(--tx2);margin-bottom:18px;}
+.stats{display:flex;gap:28px;margin-top:28px;padding-top:28px;border-top:1px solid rgba(194,24,91,0.12);}
+.stat-n{font-family:'Playfair Display',serif;font-size:34px;background:linear-gradient(135deg,var(--rose),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;}
+.stat-l{font-size:10px;color:var(--tx3);letter-spacing:1px;}
+
+/* REVIEWS */
+.tbg{background:var(--bg4);}
+.tbanner{background:linear-gradient(135deg,rgba(194,24,91,0.07),rgba(184,134,11,0.05));border:1px solid rgba(194,24,91,0.15);border-radius:16px;padding:26px 30px;text-align:center;margin-bottom:52px;}
+.tbanner p{font-family:'Playfair Display',serif;font-size:19px;font-style:italic;color:var(--tx);}
+.revs{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px;}
+.rev{background:var(--bg3);border:1px solid rgba(194,24,91,0.1);box-shadow:0 4px 18px var(--shadow);border-radius:18px;padding:26px;transition:all .3s;}
+.rev:hover{border-color:rgba(194,24,91,0.3);transform:translateY(-4px);box-shadow:0 12px 36px rgba(44,24,16,0.14);}
+.rev-stars{color:var(--gold2);font-size:14px;margin-bottom:14px;}
+.rev-text{font-family:'Playfair Display',serif;font-size:15px;font-style:italic;color:var(--tx2);line-height:1.8;margin-bottom:16px;}
+.rev-auth{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--rose);}
+
+/* CONTACT */
+.cgrid{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:start;}
+@media(max-width:820px){.cgrid{grid-template-columns:1fr;gap:32px;}}
+.ci{display:flex;align-items:flex-start;gap:16px;padding:18px;background:var(--bg3);border-radius:14px;border:1px solid var(--bd2);box-shadow:0 3px 14px var(--shadow);margin-bottom:12px;text-decoration:none;color:inherit;transition:all .3s;}
+.ci:hover{border-color:rgba(194,24,91,0.25);box-shadow:0 8px 24px rgba(44,24,16,0.12);transform:translateX(4px);}
+.ci-ic{font-size:20px;flex-shrink:0;}
+.ci-lbl{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--rose);margin-bottom:3px;}
+.ci-val{font-size:14px;color:var(--tx);}
+.fg{margin-bottom:16px;}
+.fg label{display:block;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--rose);margin-bottom:7px;}
+.fg input,.fg textarea,.fg select{width:100%;padding:13px 17px;background:var(--bg3);border:1.5px solid rgba(194,24,91,0.14);border-radius:12px;color:var(--tx);font-family:'Jost',sans-serif;font-size:14px;outline:none;transition:border-color .3s;}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--rose);}
+.fg textarea{resize:vertical;min-height:115px;}
+.fg select option{background:var(--bg3);}
+
+/* CART */
+.cart-ov{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1900;opacity:0;visibility:hidden;transition:all .3s;backdrop-filter:blur(6px);}
+.cart-ov.on{opacity:1;visibility:visible;}
+.cart-panel{position:fixed;top:0;right:0;bottom:0;width:min(440px,100vw);background:var(--bg2);z-index:1901;transform:translateX(105%);transition:transform .4s cubic-bezier(.77,0,.18,1);display:flex;flex-direction:column;box-shadow:-8px 0 60px rgba(0,0,0,.7);border-left:1px solid rgba(255,149,0,.1);}
+.cart-panel.on{transform:translateX(0);}
+.cart-hdr{padding:22px 24px 18px;border-bottom:1px solid rgba(194,24,91,0.1);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,var(--rose5),var(--bg2));}
+.cart-hdr h3{font-family:'Playfair Display',serif;font-size:20px;color:var(--tx);}
+.cart-x{background:none;border:none;font-size:22px;cursor:pointer;color:var(--tx3);transition:color .2s;}
+.cart-x:hover{color:var(--am);}
+.cart-items{flex:1;overflow-y:auto;padding:18px 22px;}
+.cart-empty{text-align:center;padding:60px 0;font-family:'Playfair Display',serif;font-size:17px;font-style:italic;color:var(--tx3);}
+.cart-line{display:flex;gap:13px;padding:15px 0;border-bottom:1px solid rgba(194,24,91,0.06);}
+.cl-ic{font-size:34px;flex-shrink:0;width:50px;text-align:center;}
+.cl-img{width:54px;height:54px;border-radius:10px;object-fit:cover;flex-shrink:0;border:1px solid rgba(255,149,0,.1);}
+.cl-info{flex:1;}
+.cl-name{font-family:'Playfair Display',serif;font-size:14px;color:var(--tx);margin-bottom:4px;}
+.cl-price{font-size:13px;color:var(--am2);font-weight:600;}
+.cl-qty{display:flex;align-items:center;gap:8px;margin-top:7px;}
+.cl-qty button{background:rgba(194,24,91,0.08);border:1px solid rgba(194,24,91,0.18);color:var(--rose);width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.cl-qty button:hover{background:rgba(194,24,91,0.18);}
+.cl-qty span{font-size:13px;color:var(--tx);min-width:20px;text-align:center;}
+.cl-rm{background:none;border:none;color:rgba(138,122,101,.4);cursor:pointer;font-size:17px;align-self:flex-start;transition:color .2s;}
+.cl-rm:hover{color:var(--or);}
+.cart-ftr{padding:18px 22px;border-top:1px solid rgba(194,24,91,0.1);background:var(--bg4);}
+.cart-tot{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+.cart-tot-lbl{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--tx3);}
+.cart-tot-amt{font-family:'Playfair Display',serif;font-size:26px;background:linear-gradient(135deg,var(--rose),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;}
+.cart-btns{display:flex;flex-direction:column;gap:10px;}
+.btn-wac{width:100%;background:linear-gradient(135deg,#075E54,#128C7E,#25D366);color:#fff;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:16px;border:none;border-radius:50px;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:600;box-shadow:0 4px 20px rgba(18,140,126,.4);}
+.btn-wac:hover{background:#0e7a6d;transform:translateY(-2px);}
+
+/* MPESA BUTTON */
+.btn-mpc-wrap{margin-top:20px;position:relative;}
+.btn-mpc{
+  width:100%;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#003d1e 0%,#006633 40%,#008a42 70%,#006633 100%);
+  color:#fff;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2px;
+  text-transform:uppercase;padding:0;border:2px solid rgba(0,200,80,.2);border-radius:50px;
+  cursor:pointer;transition:all .35s;font-weight:700;
+  box-shadow:0 6px 28px rgba(0,80,40,.6),inset 0 1px 0 rgba(255,255,255,.08);
+  display:flex;align-items:center;min-height:54px;
+}
+.btn-mpc:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,100,50,.75);}
+.btn-mpc::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.07) 0%,transparent 50%);pointer-events:none;}
+.mp-pill{position:absolute;left:7px;top:50%;transform:translateY(-50%);background:#fff;border-radius:50px;padding:7px 12px 7px 10px;display:flex;align-items:center;gap:1px;box-shadow:0 3px 12px rgba(0,0,0,.4);z-index:1;}
+.mp-pill-m{font-size:17px;font-weight:900;color:#CC0000;letter-spacing:-2px;line-height:1;font-family:Arial,sans-serif;}
+.mp-pill-p{font-size:11px;font-weight:900;color:#006633;letter-spacing:0;line-height:1;font-family:Arial,sans-serif;}
+.mp-btn-txt{flex:1;text-align:center;padding-left:72px;padding-right:16px;font-size:11px;letter-spacing:2px;}
+/* COMING SOON - fully visible above button */
+.mp-soon{
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(135deg,#FF4500,#FFB340);
+  color:#050810;font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 16px;border-radius:20px;font-weight:900;
+  box-shadow:0 3px 18px rgba(255,94,0,.8),0 0 0 2px rgba(255,255,255,.2);
+  white-space:nowrap;z-index:10;
+}
+
+/* MPESA MODAL */
+.mpov{position:fixed;inset:0;z-index:3500;background:rgba(0,0,0,.88);backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;padding:20px;}
+.mpov.on{display:flex;}
+.mpbox{background:linear-gradient(160deg,var(--bg3) 0%,var(--bg4) 100%);border:1px solid rgba(194,24,91,0.15);border-radius:28px;width:100%;max-width:460px;padding:50px 44px;text-align:center;position:relative;overflow:hidden;}
+.mpbox::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--or),var(--am),#007a3d,#00c060,var(--am));}
+.mpbox-x{position:absolute;top:14px;right:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;color:var(--tx3);transition:all .2s;}
+.mpbox-x:hover{color:var(--am);border-color:rgba(255,149,0,.3);}
+.mplogo{display:inline-flex;align-items:center;gap:4px;background:#fff;border-radius:50px;padding:14px 30px;margin-bottom:26px;box-shadow:0 6px 30px rgba(0,0,0,.5);}
+.mplogo-m{font-size:38px;font-weight:900;color:#CC0000;letter-spacing:-3px;line-height:1;font-family:Arial,sans-serif;}
+.mplogo-p{font-size:24px;font-weight:900;color:#006633;letter-spacing:.5px;line-height:1;font-family:Arial,sans-serif;}
+.mpbox h3{font-family:'Playfair Display',serif;font-size:26px;color:var(--tx);margin-bottom:10px;}
+.mpbox-badge{display:inline-block;background:linear-gradient(135deg,var(--rose),var(--rose2));color:#fff;font-size:9px;letter-spacing:4px;text-transform:uppercase;padding:9px 28px;border-radius:40px;margin:14px 0 20px;font-weight:800;box-shadow:0 4px 18px rgba(255,69,0,.4);}
+.mpbox p{font-size:14px;color:var(--tx2);line-height:1.8;margin-bottom:10px;}
+.mp-prog-bar{width:100%;height:5px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;margin:22px 0 8px;}
+.mp-prog-fill{height:100%;width:72%;background:linear-gradient(90deg,#005228,#007a3d,#00b04c);border-radius:4px;animation:mpp 2.2s ease-in-out infinite;}
+@keyframes mpp{0%,100%{opacity:.7;}50%{opacity:1;}}
+.mp-prog-lbl{font-size:9px;letter-spacing:2px;color:var(--tx3);text-transform:uppercase;margin:0 0 20px;text-align:center;}
+.mp-info{background:rgba(194,24,91,0.04);border:1px solid rgba(194,24,91,0.12);border-radius:14px;padding:16px 20px;margin-bottom:22px;text-align:left;}
+.mp-info-ttl{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--rose);margin-bottom:10px;}
+.mp-info-row{font-size:13px;color:var(--tx2);line-height:2.1;}
+.mp-info-row span{color:var(--tx3);}
+.btn-mpwa{width:100%;background:#128C7E;color:#fff;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:16px;border:none;border-radius:50px;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:600;box-shadow:0 4px 20px rgba(18,140,126,.4);}
+.btn-mpwa:hover{background:#0e7a6d;transform:translateY(-2px);}
+
+/* STICKY WA */
+.s-wa{position:fixed;bottom:28px;right:22px;z-index:999;width:62px;height:62px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 6px 28px rgba(37,211,102,.55);animation:wap 2.5s ease-in-out infinite;transition:transform .3s;}
+.s-wa:hover{transform:scale(1.1);}
+.s-wa svg{width:30px;height:30px;fill:#fff;}
+@keyframes wap{0%,100%{box-shadow:0 6px 28px rgba(37,211,102,.55);}50%{box-shadow:0 6px 44px rgba(37,211,102,.9);}}
+
+/* WISHLIST */
+.wl-ind{position:fixed;top:84px;right:22px;background:var(--bg3);border:1px solid rgba(194,24,91,0.22);box-shadow:0 4px 16px var(--shadow);border-radius:14px;padding:8px 16px;font-size:11px;color:var(--tx3);z-index:900;display:none;letter-spacing:1px;box-shadow:0 4px 20px rgba(0,0,0,.4);}
+.wl-ind.show{display:block;}
+.wl-ind b{color:var(--rose);}
+
+/* LEGAL */
+.legalov{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px;}
+.legalov.on{display:flex;}
+.legalbox{background:var(--bg3);border:1px solid rgba(194,24,91,0.13);border-radius:22px;width:100%;max-width:700px;max-height:88vh;overflow-y:auto;padding:44px;position:relative;}
+.legalbox h2{font-family:'Playfair Display',serif;font-size:26px;color:var(--rose);margin-bottom:6px;}
+.l-date{font-size:11px;color:var(--tx3);margin-bottom:26px;display:block;}
+.legalbox h3{font-family:'Playfair Display',serif;font-size:15px;color:var(--plum);margin:22px 0 8px;}
+.legalbox p,.legalbox li{font-size:14px;line-height:1.9;color:var(--tx2);margin-bottom:7px;}
+.legalbox ul{padding-left:20px;margin-bottom:10px;}
+.legal-x{position:absolute;top:18px;right:22px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--tx3);transition:color .2s;}
+.legal-x:hover{color:var(--am);}
+
+/* ADMIN */
+.adminov{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.9);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px;}
+.adminov.on{display:flex;}
+.adminbox{background:var(--bg3);border:1px solid rgba(194,24,91,0.15);border-radius:24px;width:100%;max-width:720px;max-height:90vh;overflow-y:auto;padding:40px;}
+.adminbox h2{font-family:'Playfair Display',serif;font-size:22px;color:var(--rose);display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;}
+.a-tabs{display:flex;gap:10px;margin-bottom:26px;}
+.a-tab{font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:10px 20px;border-radius:30px;border:none;cursor:pointer;transition:all .3s;font-family:'Jost',sans-serif;background:rgba(194,24,91,0.06);color:var(--tx3);}
+.a-tab.on{background:linear-gradient(135deg,var(--rose),var(--rose2));color:#fff;font-weight:700;}
+.a-prod{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--bg4);border-radius:14px;margin-bottom:10px;border:1px solid var(--bd2);}
+.a-prod-ic{font-size:26px;flex-shrink:0;}
+.a-prod-img{width:52px;height:52px;border-radius:10px;object-fit:cover;flex-shrink:0;border:1px solid rgba(255,149,0,.12);}
+.a-inf{flex:1;}
+.a-nm{font-size:14px;color:var(--tx);margin-bottom:2px;}
+.a-pr{font-size:12px;color:var(--am2);font-family:'Playfair Display',serif;}
+.a-acts{display:flex;gap:7px;flex-wrap:wrap;}
+.aedit,.adel,.aimg{padding:6px 14px;border-radius:20px;font-size:10px;cursor:pointer;border:none;transition:all .2s;font-family:'Jost',sans-serif;font-weight:600;letter-spacing:1px;}
+.aedit{background:rgba(194,24,91,0.08);color:var(--rose);}
+.aedit:hover{background:rgba(194,24,91,0.18);}
+.aimg{background:rgba(255,255,255,.04);color:var(--tx2);border:1px solid rgba(255,255,255,.07);}
+.aimg:hover{border-color:rgba(255,149,0,.28);color:var(--am2);}
+.adel{background:rgba(255,60,60,.09);color:#ff8888;}
+.adel:hover{background:rgba(255,60,60,.2);}
+.afg{margin-bottom:15px;}
+.afg label{display:block;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--rose);margin-bottom:7px;}
+.afg input,.afg textarea,.afg select{width:100%;padding:12px 16px;background:var(--bg4);border:1.5px solid rgba(194,24,91,0.14);border-radius:12px;color:var(--tx);font-family:'Jost',sans-serif;font-size:14px;outline:none;transition:border-color .3s;}
+.afg input:focus,.afg textarea:focus,.afg select:focus{border-color:var(--rose);}
+.afg select option{background:var(--bg3);}
+.afg input[type="file"]{padding:10px;cursor:pointer;}
+.ipw{margin-top:10px;display:none;}
+.ipw img{width:100%;max-height:180px;object-fit:cover;border-radius:10px;border:1px solid rgba(194,24,91,0.18);}
+.ipw.show{display:block;}
+.ior{text-align:center;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--tx3);margin:10px 0;}
+
+/* LOGIN */
+.loginov{position:fixed;inset:0;z-index:3500;background:rgba(0,0,0,.97);backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;padding:20px;}
+.loginov.on{display:flex;}
+.loginbox{background:linear-gradient(160deg,var(--bg3),var(--bg4));border:1px solid rgba(194,24,91,0.2);border-radius:24px;width:100%;max-width:370px;padding:52px 44px;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.8);position:relative;overflow:hidden;}
+.loginbox::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--rose),var(--gold2),var(--rose));}
+.loginbox h3{font-family:'Playfair Display',serif;font-size:24px;color:var(--rose);margin-bottom:8px;}
+.loginbox .lsub{font-size:13px;color:var(--tx3);margin-bottom:28px;}
+.login-x{background:none;border:none;font-size:22px;cursor:pointer;color:var(--tx3);float:right;margin:-8px -8px 0 0;transition:color .2s;}
+.login-x:hover{color:var(--am);}
+
+/* TOAST */
+.toast{position:fixed;bottom:110px;left:50%;transform:translateX(-50%);background:var(--rose);color:#fff;border:1px solid rgba(194,24,91,0.3);font-size:11px;letter-spacing:2px;padding:14px 28px;border-radius:40px;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.5);}
+.toast.on{opacity:1;}
+
+/* FOOTER */
+footer{background:var(--bg4);padding:68px 24px 36px;text-align:center;border-top:1px solid rgba(194,24,91,0.12);}
+.f-logo{width:110px;margin:0 auto 18px;opacity:.9;}
+.f-script{font-family:'Pinyon Script',cursive;font-size:28px;background:linear-gradient(135deg,var(--rose),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:28px;display:block;}
+.f-links{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin-bottom:26px;}
+.f-links a{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);text-decoration:none;transition:color .3s;cursor:pointer;}
+.f-links a:hover{color:var(--rose);}
+.f-rule{width:60px;height:1px;background:linear-gradient(90deg,transparent,rgba(194,24,91,.4),transparent);margin:0 auto 22px;}
+.f-copy{font-size:11px;color:var(--tx3);letter-spacing:1px;line-height:1.9;}
+.f-powered{font-size:10px;letter-spacing:2px;color:var(--tx3);margin-top:8px;}
+.f-powered span{color:var(--rose);}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-wrap"><img src="1000119523.png" alt="Empress Leah Beauty" onerror="this.style.display='none'"></div>
+  <div class="ld-name">Empress Leah Beauty</div>
+  <div class="ld-tag">Glow Like an Empress</div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">
+    <img src="1000119523.png" alt="Empress Leah Beauty" onerror="this.style.display='none';document.querySelector('.nav-logo-txt').style.display='block'">
+    <span class="nav-logo-txt">Empress Leah</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#trust">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li class="adm"><a href="#" onclick="openLogin(event)">Admin</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="cart-btn" onclick="toggleCart()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home" style="min-height:100vh;background:radial-gradient(ellipse 90% 75% at 50% 15%,rgba(194,24,91,.08),transparent 60%),radial-gradient(ellipse 70% 60% at 50% 30%,rgba(240,98,146,.07),transparent 55%),radial-gradient(ellipse 50% 45% at 85% 80%,rgba(184,134,11,.06),transparent 50%),var(--bg2);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:110px 24px 90px;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--rose) 20%,var(--gold2) 50%,var(--rose3) 70%,var(--rose) 85%,transparent);box-shadow:0 0 16px rgba(194,24,91,0.35);"></div>
+  <div class="ptcl"><span></span><span></span><span></span><span></span><span></span></div>
+  <img style="width:min(280px,64vw);filter:drop-shadow(0 0 50px rgba(194,24,91,.25)) drop-shadow(0 0 100px rgba(184,134,11,.15)) drop-shadow(0 8px 20px rgba(44,24,16,.15));animation:fup 1s ease .3s both;" src="1000119523.png" alt="Empress Leah Beauty" onerror="this.style.display='none'">
+  <p style="font-family:'Pinyon Script',cursive;font-size:clamp(24px,5.5vw,46px);background:linear-gradient(135deg,var(--rose),var(--gold2),var(--rose3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:28px 0 10px;animation:fup 1s ease .5s both;">Glow Like an Empress</p>
+  <p style="font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--tx2);margin-bottom:48px;animation:fup 1s ease .7s both;">Premium Beauty &amp; Wellness &nbsp;&bull;&nbsp; Nairobi, Kenya</p>
+  <div class="orn" style="animation:fup 1s ease .8s both;"><div class="orn-gem"></div></div>
+  <div class="hero-btns">
+    <a href="#shop" class="btn-p">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Shop Now
+    </a>
+    <a href="https://wa.me/254112293380?text=Hello%2C+I+would+love+to+browse+Empress+Leah+Beauty+products" class="btn-o" target="_blank">
+      <svg viewBox="0 0 32 32" width="16" height="16" fill="currentColor"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.471 2.027 7.773L0 32l8.453-2.016A15.937 15.937 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm7.307 19.36c-.4-.2-2.36-1.16-2.72-1.293-.36-.133-.627-.2-.893.2-.267.4-1.027 1.293-1.253 1.56-.227.267-.453.3-.853.1-.4-.2-1.693-.627-3.227-2.013-1.187-1.067-1.987-2.387-2.22-2.787-.233-.4-.027-.613.173-.813.18-.18.4-.467.6-.7.2-.233.267-.4.4-.667.133-.267.067-.5-.033-.7-.1-.2-.893-2.147-1.227-2.947-.32-.773-.653-.667-.893-.68-.227-.013-.487-.013-.747-.013-.267 0-.7.1-1.067.5-.367.4-1.4 1.367-1.4 3.333s1.433 3.867 1.633 4.133c.2.267 2.82 4.307 6.833 6.04.953.413 1.697.66 2.28.847.96.307 1.833.267 2.52.16.773-.12 2.36-.96 2.693-1.893.333-.933.333-1.733.233-1.893-.1-.16-.36-.267-.76-.467z"/></svg>
+      Order on WhatsApp
+    </a>
+  </div>
+  <div class="shint">
+    <svg width="14" height="22" viewBox="0 0 14 22" fill="none" stroke="var(--rose3)" stroke-width="1.4"><rect x="1" y="1" width="12" height="20" rx="6"/><circle cx="7" cy="6" r="1.5" fill="var(--rose3)" stroke="none"><animate attributeName="cy" values="6;14;6" dur="2s" repeatCount="indefinite"/></circle></svg>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker"><div class="t-track" id="ticker"></div></div>
+
+<!-- PRODUCT SLIDER -->
+<div class="slider-section">
+  <div class="slider-hdr">
+    <h2>&#10024; <span>Featured Products</span></h2>
+    <div class="slider-controls">
+      <button class="sl-btn" onclick="slPrev()">&#8249;</button>
+      <button class="sl-btn" onclick="slNext()">&#8250;</button>
+    </div>
+  </div>
+  <div class="slider-track-wrap"><div class="slider-track" id="slTrack"></div></div>
+  <div class="sl-dots" id="slDots"></div>
+</div>
+
+<!-- SHOP -->
+<div id="shop" style="background:var(--bg2);padding:92px 0;">
+<div style="max-width:1200px;margin:0 auto;padding:0 28px;">
+  <div class="slbl">&#10022; Our Collection &#10022;</div>
+  <h2 class="sh">Discover Your <em>Glow</em></h2>
+  <div class="srule"></div>
+  <div class="nbanner">
+    <div>
+      <div class="nb-badge">New Arrivals 2025</div>
+      <h3>Fresh Drops Have Landed</h3>
+      <p>Our latest BF Suma collection and premium skincare are now in stock. Authentic formulas, delivered straight to your door across Kenya.</p>
+    </div>
+    <a href="https://wa.me/254112293380?text=Hello%2C+I+would+like+to+know+about+your+new+arrivals" target="_blank" class="btn-p" style="flex-shrink:0;">Ask About New Arrivals</a>
+  </div>
+  <div class="fbar">
+    <button class="flt on" onclick="doFilter('all',this)">All Products</button>
+    <button class="flt" onclick="doFilter('skincare',this)">Skincare</button>
+    <button class="flt" onclick="doFilter('wellness',this)">Wellness</button>
+    <button class="flt" onclick="doFilter('haircare',this)">Hair &amp; Body</button>
+    <button class="flt" onclick="doFilter('makeup',this)">Makeup</button>
+    <button class="flt" onclick="doFilter('brightening',this)">Brightening</button>
+    <button class="flt" onclick="doFilter('bodyshaping',this)">Body Shaping</button>
+    <button class="flt" onclick="doFilter('fragrance',this)">Fragrance</button>
+    <button class="flt" onclick="doFilter('nails',this)">Nails</button>
+  </div>
+  <div class="grid" id="prodGrid"></div>
+</div></div>
+
+<!-- ABOUT -->
+<div id="about" style="background:var(--bg);padding:92px 0;">
+<div style="max-width:1200px;margin:0 auto;padding:0 28px;">
+  <div class="about-grid">
+    <div class="about-frame">&#128081;</div>
+    <div class="about-text">
+      <div class="slbl">&#10022; Our Story &#10022;</div>
+      <h2 class="sh">Born from <em>Beauty &amp; Confidence</em></h2>
+      <div class="srule"></div>
+      <p>Empress Leah Beauty was built on a simple yet powerful belief: every woman deserves to feel like royalty. We curate only the finest, most effective beauty and wellness products to celebrate your natural glow.</p>
+      <p>Beauty is not merely appearance. It is confidence, self-care, and embracing who you truly are. Our carefully selected BF Suma and premium beauty products are designed to nurture your skin, elevate your routine, and let your inner empress shine.</p>
+      <p>Every product we carry is authentic, scientifically formulated, and delivered with love. Your trust is our crown.</p>
+      <div class="stats">
+        <div class="stat"><span class="stat-n">500+</span><span class="stat-l">Happy Clients</span></div>
+        <div class="stat"><span class="stat-n">100%</span><span class="stat-l">Authentic</span></div>
+        <div class="stat"><span class="stat-n">48hr</span><span class="stat-l">Fast Delivery</span></div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- REVIEWS -->
+<div id="trust" class="tbg" style="padding:92px 0;">
+<div style="max-width:1200px;margin:0 auto;padding:0 28px;">
+  <div class="slbl">&#10022; Testimonials &#10022;</div>
+  <h2 class="sh">What Our <em>Empresses</em> Say</h2>
+  <div class="srule"></div>
+  <div class="tbanner"><p>Authentic, High-Quality Beauty Products. Trusted by Hundreds of Empresses across Kenya.</p></div>
+  <div class="revs" id="revGrid"></div>
+</div></div>
+
+<!-- CONTACT -->
+<div id="contact" style="background:var(--bg2);padding:72px 0;">
+<div style="max-width:1200px;margin:0 auto;padding:0 16px;">
+  <div class="slbl">&#10022; Get In Touch &#10022;</div>
+  <h2 class="sh">Contact Your <em>Beauty Concierge</em></h2>
+  <div class="srule"></div>
+  <div class="cgrid">
+    <div>
+      <a class="ci" href="https://wa.me/254112293380" target="_blank"><span class="ci-ic"><svg viewBox="0 0 32 32" width="22" height="22" fill="#25D366"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.471 2.027 7.773L0 32l8.453-2.016A15.937 15.937 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm7.307 19.36c-.4-.2-2.36-1.16-2.72-1.293-.36-.133-.627-.2-.893.2-.267.4-1.027 1.293-1.253 1.56-.227.267-.453.3-.853.1-.4-.2-1.693-.627-3.227-2.013-1.187-1.067-1.987-2.387-2.22-2.787-.233-.4-.027-.613.173-.813.18-.18.4-.467.6-.7.2-.233.267-.4.4-.667.133-.267.067-.5-.033-.7-.1-.2-.893-2.147-1.227-2.947-.32-.773-.653-.667-.893-.68-.227-.013-.487-.013-.747-.013-.267 0-.7.1-1.067.5-.367.4-1.4 1.367-1.4 3.333s1.433 3.867 1.633 4.133c.2.267 2.82 4.307 6.833 6.04.953.413 1.697.66 2.28.847.96.307 1.833.267 2.52.16.773-.12 2.36-.96 2.693-1.893.333-.933.333-1.733.233-1.893-.1-.16-.36-.267-.76-.467z"/></svg></span><div><div class="ci-lbl">WhatsApp</div><div class="ci-val">+254 112 293380</div></div></a>
+      <a class="ci" href="/cdn-cgi/l/email-protection#187d75686a7d6b6b747d79707a7d796d6c61587f75797174367b7775"><span class="ci-ic">&#9993;</span><div><div class="ci-lbl">Email</div><div class="ci-val"><span class="__cf_email__" data-cfemail="b8ddd5c8caddcbcbd4ddd9d0daddd9cdccc1f8dfd5d9d1d496dbd7d5">[email&#160;protected]</span></div></div></a>
+      <div class="ci" style="cursor:default;"><span class="ci-ic">&#128205;</span><div><div class="ci-lbl">Location</div><div class="ci-val">Nairobi, Kenya</div></div></div>
+      <div class="ci" style="cursor:default;"><span class="ci-ic">&#128336;</span><div><div class="ci-lbl">Working Hours</div><div class="ci-val">Mon to Sat, 8AM to 8PM</div></div></div>
+      <div style="margin-top:22px;"><a href="https://wa.me/254112293380?text=Hello%2C+I+have+an+enquiry+about+Empress+Leah+Beauty" class="btn-p" target="_blank" style="display:inline-flex;">Chat on WhatsApp</a></div>
+    </div>
+    <div>
+      <div class="fg"><label>Your Name</label><input type="text" id="cN" placeholder="Your full name"></div>
+      <div class="fg"><label>Email</label><input type="email" id="cE" placeholder="your@email.com"></div>
+      <div class="fg"><label>Subject</label><select id="cS"><option value="">Select a topic...</option><option>Product Enquiry</option><option>Order Status</option><option>Returns and Exchange</option><option>Delivery</option><option>Other</option></select></div>
+      <div class="fg"><label>Message</label><textarea id="cM" placeholder="How can we help you glow today?"></textarea></div>
+      <button class="btn-p" onclick="sendContact()" style="width:100%;justify-content:center;">Send Message</button>
+    </div>
+  </div>
+</div></div>
+
+<!-- FOOTER -->
+<footer>
+  <img class="f-logo" src="1000119523.png" alt="Empress Leah Beauty" onerror="this.style.display='none'">
+  <span class="f-script">Empress Leah Beauty</span>
+  <div class="f-links">
+    <a onclick="document.getElementById('home').scrollIntoView({behavior:'smooth'})">Home</a>
+    <a onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop</a>
+    <a onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">About</a>
+    <a onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</a>
+    <a onclick="openLegal('tc')">Terms &amp; Conditions</a>
+    <a onclick="openLegal('pp')">Privacy Policy</a>
+  </div>
+  <div class="f-rule"></div>
+  <p class="f-copy">&copy; 2025 Empress Leah Beauty. All rights reserved.<br>Authentic Beauty &amp; Wellness Products. Nairobi, Kenya.</p>
+  <p class="f-powered">Powered by <span>Agunextech</span></p>
+</footer>
+
+<!-- STICKY WA -->
+<a class="s-wa" href="https://wa.me/254112293380?text=Hello%2C+I+would+like+to+order+from+Empress+Leah+Beauty" target="_blank">
+  <svg viewBox="0 0 32 32"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.471 2.027 7.773L0 32l8.453-2.016A15.937 15.937 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm7.307 19.36c-.4-.2-2.36-1.16-2.72-1.293-.36-.133-.627-.2-.893.2-.267.4-1.027 1.293-1.253 1.56-.227.267-.453.3-.853.1-.4-.2-1.693-.627-3.227-2.013-1.187-1.067-1.987-2.387-2.22-2.787-.233-.4-.027-.613.173-.813.18-.18.4-.467.6-.7.2-.233.267-.4.4-.667.133-.267.067-.5-.033-.7-.1-.2-.893-2.147-1.227-2.947-.32-.773-.653-.667-.893-.68-.227-.013-.487-.013-.747-.013-.267 0-.7.1-1.067.5-.367.4-1.4 1.367-1.4 3.333s1.433 3.867 1.633 4.133c.2.267 2.82 4.307 6.833 6.04.953.413 1.697.66 2.28.847.96.307 1.833.267 2.52.16.773-.12 2.36-.96 2.693-1.893.333-.933.333-1.733.233-1.893-.1-.16-.36-.267-.76-.467z"/></svg>
+</a>
+
+<div class="wl-ind" id="wlInd">&#9825; <b id="wlCount">0</b> Wishlist</div>
+
+<!-- CART -->
+<div class="cart-ov" id="cartOv" onclick="toggleCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-hdr"><h3>Your Cart &#128081;</h3><button class="cart-x" onclick="toggleCart()">&#10005;</button></div>
+  <div class="cart-items" id="cartItems"><div class="cart-empty">Your cart is empty.<br><br>Add some empress essentials!</div></div>
+  <div class="cart-ftr" id="cartFtr" style="display:none">
+    <div class="cart-tot"><span class="cart-tot-lbl">Total</span><span class="cart-tot-amt" id="cartAmt">KSh 0</span></div>
+    <div class="cart-btns">
+      <button class="btn-wac" onclick="checkoutWA()">
+        <svg width="20" height="20" viewBox="0 0 32 32" fill="white"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.471 2.027 7.773L0 32l8.453-2.016A15.937 15.937 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm7.307 19.36c-.4-.2-2.36-1.16-2.72-1.293-.36-.133-.627-.2-.893.2-.267.4-1.027 1.293-1.253 1.56-.227.267-.453.3-.853.1-.4-.2-1.693-.627-3.227-2.013-1.187-1.067-1.987-2.387-2.22-2.787-.233-.4-.027-.613.173-.813.18-.18.4-.467.6-.7.2-.233.267-.4.4-.667.133-.267.067-.5-.033-.7-.1-.2-.893-2.147-1.227-2.947-.32-.773-.653-.667-.893-.68-.227-.013-.487-.013-.747-.013-.267 0-.7.1-1.067.5-.367.4-1.4 1.367-1.4 3.333s1.433 3.867 1.633 4.133c.2.267 2.82 4.307 6.833 6.04.953.413 1.697.66 2.28.847.96.307 1.833.267 2.52.16.773-.12 2.36-.96 2.693-1.893.333-.933.333-1.733.233-1.893-.1-.16-.36-.267-.76-.467z"/></svg>
+        Pay via WhatsApp
+      </button>
+      <!-- M-PESA BUTTON with Coming Soon fully visible above -->
+      <div class="btn-mpc-wrap">
+        <span class="mp-soon">&#9889; Coming Soon</span>
+        <button class="btn-mpc" onclick="openMpesa()">
+          <div class="mp-pill"><span class="mp-pill-m">M</span><span class="mp-pill-p">PESA</span></div>
+          <span class="mp-btn-txt">Pay with M-Pesa</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- MPESA MODAL -->
+<div class="mpov" id="mpov">
+  <div class="mpbox">
+    <button class="mpbox-x" onclick="closeMpesa()">&#10005;</button>
+    <div class="mplogo"><span class="mplogo-m">M</span><span class="mplogo-p">PESA</span></div>
+    <h3>M-Pesa Direct Payment</h3>
+    <div class="mpbox-badge">Coming Very Soon</div>
+    <p>We are currently integrating M-Pesa Paybill directly into this platform so you can pay instantly without leaving the site.</p>
+    <p style="margin-top:8px;">In the meantime, simply order via WhatsApp and our team will send you M-Pesa payment details in minutes.</p>
+    <div class="mp-prog-bar"><div class="mp-prog-fill"></div></div>
+    <div class="mp-prog-lbl">Integration in progress - 72% complete</div>
+    <div class="mp-info">
+      <div class="mp-info-ttl">M-Pesa Details (via WhatsApp Order)</div>
+      <div class="mp-info-row">
+        <span>Till / Paybill:</span> Shared on WhatsApp confirmation<br>
+        <span>Business Name:</span> Empress Leah Beauty<br>
+        <span>Confirmation:</span> Instant via SMS
+      </div>
+    </div>
+    <button class="btn-mpwa" onclick="closeMpesa();checkoutWA()">
+      <svg width="18" height="18" viewBox="0 0 32 32" fill="white"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.471 2.027 7.773L0 32l8.453-2.016A15.937 15.937 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm7.307 19.36c-.4-.2-2.36-1.16-2.72-1.293-.36-.133-.627-.2-.893.2-.267.4-1.027 1.293-1.253 1.56-.227.267-.453.3-.853.1-.4-.2-1.693-.627-3.227-2.013-1.187-1.067-1.987-2.387-2.22-2.787-.233-.4-.027-.613.173-.813.18-.18.4-.467.6-.7.2-.233.267-.4.4-.667.133-.267.067-.5-.033-.7-.1-.2-.893-2.147-1.227-2.947-.32-.773-.653-.667-.893-.68-.227-.013-.487-.013-.747-.013-.267 0-.7.1-1.067.5-.367.4-1.4 1.367-1.4 3.333s1.433 3.867 1.633 4.133c.2.267 2.82 4.307 6.833 6.04.953.413 1.697.66 2.28.847.96.307 1.833.267 2.52.16.773-.12 2.36-.96 2.693-1.893.333-.933.333-1.733.233-1.893-.1-.16-.36-.267-.76-.467z"/></svg>
+      Order via WhatsApp - Pay by M-Pesa
+    </button>
+  </div>
+</div>
+
+<!-- TERMS -->
+<div class="legalov" id="tcOv">
+  <div class="legalbox">
+    <button class="legal-x" onclick="closeLegal('tc')">&#10005;</button>
+    <h2>Terms &amp; Conditions</h2>
+    <span class="l-date">Effective: 1 January 2025 | Empress Leah Beauty, Nairobi, Kenya</span>
+    <p>Welcome to Empress Leah Beauty. By browsing this website or placing an order, you agree to these Terms and Conditions.</p>
+    <h3>1. About Us</h3><p>Empress Leah Beauty is a premium beauty and wellness retail brand based in Nairobi, Kenya. We sell authentic beauty, skincare and wellness products including BF Suma products and other premium brands.</p>
+    <h3>2. Products and Pricing</h3><p>All products are authentic and sourced from certified distributors. Prices are in Kenyan Shillings and subject to change without notice. Product images are for illustration purposes only.</p>
+    <h3>3. Placing an Order</h3><p>Orders are placed primarily via WhatsApp. Our team will confirm availability, share the final price including delivery charges, and guide you on payment. An order is confirmed only once payment is received.</p>
+    <h3>4. Payment</h3><p>We accept M-Pesa, bank transfer and cash on delivery for select Nairobi locations. Payment details are shared upon order confirmation.</p>
+    <h3>5. Delivery</h3><p>We deliver across Nairobi and Kenya via courier. Nairobi orders take 1 to 2 business days while other counties take 2 to 5 business days.</p>
+    <h3>6. Returns and Exchanges</h3><p>If you receive a damaged or incorrect product, please contact us within 48 hours with photographic evidence. Returns are not accepted for opened personal care products unless defective.</p>
+    <h3>7. Health Disclaimer</h3><p>Products are not intended to diagnose, treat, cure or prevent any disease. Always consult a healthcare professional before using new wellness products.</p>
+    <h3>8. Contact</h3><p>WhatsApp: +254 112 293380. Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fb9e968b899e8888979e9a93999e9a8e8f82bb9c969a9297d5989496">[email&#160;protected]</a></p>
+  </div>
+</div>
+
+<!-- PRIVACY -->
+<div class="legalov" id="ppOv">
+  <div class="legalbox">
+    <button class="legal-x" onclick="closeLegal('pp')">&#10005;</button>
+    <h2>Privacy Policy</h2>
+    <span class="l-date">Effective: 1 January 2025 | Empress Leah Beauty, Nairobi, Kenya</span>
+    <p>Your privacy is a priority at Empress Leah Beauty. This policy explains how we collect, use, protect and share your personal information.</p>
+    <h3>1. Information We Collect</h3><p>We collect personal information including name, phone number, email and delivery address when you order or contact us. We also collect order information and anonymous usage data.</p>
+    <h3>2. How We Use Your Information</h3><p>We use your information to process and fulfil orders, communicate updates and promotions, improve our services, and comply with Kenyan law.</p>
+    <h3>3. Data Security</h3><p>We implement appropriate measures to protect your data. However, no internet transmission is 100% secure.</p>
+    <h3>4. Your Rights</h3><p>Under the Kenya Data Protection Act 2019, you have the right to access, correct or delete your personal data. Contact us at WhatsApp +254 112 293380.</p>
+    <h3>5. Contact</h3><p>WhatsApp: +254 112 293380. Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d0b5bda0a2b5a3a3bcb5b1b8b2b5b1a5a4a990b7bdb1b9bcfeb3bfbd">[email&#160;protected]</a></p>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div class="loginov" id="loginOv">
+  <div class="loginbox">
+    <button class="login-x" onclick="closeLogin()">&#10005;</button>
+    <h3>&#128081; Admin Access</h3>
+    <p class="lsub">Enter your password to access the dashboard</p>
+    <div class="fg"><label>Password</label><input type="password" id="aPass" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <button class="btn-p" onclick="doLogin()" style="width:100%;justify-content:center;margin-bottom:10px;">Enter Dashboard</button>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="adminov" id="adminOv">
+  <div class="adminbox">
+    <h2>&#128081; Admin Dashboard <button class="cart-x" onclick="closeAdmin()">&#10005;</button></h2>
+    <div class="a-tabs">
+      <button class="a-tab on" onclick="aSwitch('list',this)">Products</button>
+      <button class="a-tab" onclick="aSwitch('add',this)">Add Product</button>
+      <button class="a-tab" onclick="aSwitch('reviews',this)">&#9733; Reviews</button>
+    </div>
+    <div id="aList"></div>
+    <div id="aAdd" style="display:none">
+      <div class="afg"><label>Product Name</label><input type="text" id="ap_n" placeholder="e.g. BF Suma Youth Essence Cream"></div>
+      <div id="aRevs" style="display:none">
+        <div id="aRevList" style="margin-bottom:20px;"></div>
+        <div style="background:var(--bg4);border-radius:14px;padding:20px;border:1px solid rgba(194,24,91,0.12);">
+          <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--rose);margin-bottom:16px;font-weight:600;">&#10133; Add New Review</div>
+          <div class="afg"><label>Customer Name and Location</label><input type="text" id="rv_auth" placeholder="e.g. Jane M., Nairobi"></div>
+          <div class="afg"><label>Review Text (what the customer said)</label><textarea id="rv_text" style="min-height:100px;" placeholder="Type the customer review here..."></textarea></div>
+          <div class="afg"><label>Star Rating</label>
+            <select id="rv_stars">
+              <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733; - 5 Stars (Excellent)</option>
+              <option value="4">&#9733;&#9733;&#9733;&#9733; - 4 Stars (Very Good)</option>
+              <option value="3">&#9733;&#9733;&#9733; - 3 Stars (Good)</option>
+            </select>
+          </div>
+          <button class="btn-p" onclick="addReview()" style="width:100%;justify-content:center;margin-top:4px;">Save Review</button>
+        </div>
+      </div>
+      <div class="afg"><label>Price (KSh)</label><input type="number" id="ap_p" placeholder="e.g. 5371"></div>
+      <div class="afg"><label>Old Price (KSh) - optional</label><input type="number" id="ap_op" placeholder="e.g. 5967"></div>
+      <div class="afg"><label>Category</label><select id="ap_c"><option value="skincare">Skincare</option><option value="wellness">Wellness</option><option value="haircare">Hair and Body</option><option value="makeup">Makeup</option><option value="brightening">Brightening</option><option value="bodyshaping">Body Shaping</option><option value="fragrance">Fragrance</option><option value="nails">Nails</option></select></div>
+      <div class="afg"><label>Description</label><textarea id="ap_d" placeholder="Short product description..."></textarea></div>
+      <div class="afg"><label>Badge</label><select id="ap_b"><option value="">None</option><option value="best">Best Seller</option><option value="lim">Limited Stock</option><option value="new">New</option></select></div>
+      <div class="afg"><label>Emoji Icon</label><input type="text" id="ap_e" value="&#10024;"></div>
+      <div class="afg">
+        <label>Product Image - Upload File</label>
+        <input type="file" id="ap_imgFile" accept="image/*" onchange="handleImgUpload(this)">
+        <div class="ipw" id="ipw"><img id="iprev" src="" alt="Preview"></div>
+      </div>
+      <div class="ior">- or paste image URL below -</div>
+      <div class="afg">
+        <label>Product Image URL</label>
+        <input type="text" id="ap_imgUrl" placeholder="https://example.com/product.jpg" oninput="handleImgUrl(this.value)">
+      </div>
+      <button class="btn-p" onclick="addProd()" style="width:100%;justify-content:center;">Add Product</button>
+    </div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+var prods=[
+  {id:1,name:"BF Suma Youth Essence Facial Cream",price:5371,old:5967,cat:"skincare",icon:"&#129396;",img:"",desc:"Advanced liposome technology with Rhodiola Rosea and Sodium Hyaluronate. Restores firmness, fades dark spots and revives youthful radiance.",badge:"best"},
+  {id:2,name:"BF Suma Feminergy Capsules",price:4739,old:5265,cat:"wellness",icon:"&#128138;",img:"",desc:"Natural OPC grape seed antioxidant formula for women. Boosts energy, balances hormones, improves skin tone and fights aging from within.",badge:"best"},
+  {id:3,name:"BF Suma FemiCare Feminine Cleanser",price:1738,old:1930,cat:"haircare",icon:"&#127800;",img:"",desc:"Gentle pH-balanced intimate wash for delicate feminine care. Maintains freshness and supports natural balance.",badge:"new"},
+  {id:4,name:"BF Suma Vitamin C Chewable Tablets",price:3159,old:null,cat:"wellness",icon:"&#127818;",img:"",desc:"High-potency Vitamin C tablets. Supercharges immunity, brightens skin from within and supports collagen production.",badge:""},
+  {id:5,name:"BF Suma Blueberry Vision Tablets",price:3791,old:4212,cat:"wellness",icon:"&#129526;",img:"",desc:"Premium blueberry extract chewables for sharp vision. Protects against eye strain and provides powerful antioxidant support.",badge:""},
+  {id:6,name:"BF Suma Dr Ts Herbal Toothpaste",price:869,old:965,cat:"haircare",icon:"&#129463;",img:"",desc:"Herbal toothpaste with botanical extracts. Whitens teeth, freshens breath and strengthens enamel naturally.",badge:"new"},
+  {id:7,name:"BF Suma Calcium and Vitamin D3 Tablets",price:3791,old:4212,cat:"wellness",icon:"&#129371;",img:"",desc:"Strawberry-flavoured calcium and D3 milk tablets. Strengthens bones and supports muscle function.",badge:""},
+  {id:8,name:"Vitamin C Brightening Serum",price:2500,old:null,cat:"skincare",icon:"&#10024;",img:"",desc:"20% Vitamin C, Niacinamide and Arbutin. Fades dark spots and delivers a lit-from-within glow.",badge:"best"},
+  {id:9,name:"24K Gold Luxe Moisturiser",price:2400,old:null,cat:"skincare",icon:"&#128155;",img:"",desc:"Ultra-rich moisturiser infused with 24K gold particles and hyaluronic acid. Plumps, firms and illuminates.",badge:"new"},
+  {id:10,name:"Rose and Shea Whipped Body Butter",price:1100,old:null,cat:"haircare",icon:"&#127801;",img:"",desc:"Intensely nourishing whipped body butter with shea, rose hip and vitamin E. 48-hour moisture lock.",badge:""},
+  {id:11,name:"Castor and Argan Hair Growth Elixir",price:1200,old:null,cat:"haircare",icon:"&#127807;",img:"",desc:"Pure cold-pressed castor oil blended with argan and rosemary. Stimulates growth and restores shine.",badge:"best"},
+  {id:12,name:"Empress Glow Foundation",price:1600,old:null,cat:"makeup",icon:"&#128132;",img:"",desc:"Full-coverage, long-wearing foundation in 30 shades with SPF 15. Perfect matte finish for all skin tones.",badge:""},
+  // BRIGHTENING
+  {id:13,name:"Glutathione Skin Brightening Cream",price:1800,old:2200,cat:"brightening",icon:"&#127775;",img:"",desc:"Advanced glutathione and kojic acid cream. Evens skin tone, fades dark spots and delivers a luminous glow. Safe for all African skin tones.",badge:"best"},
+  {id:14,name:"Kojic Acid and Turmeric Brightening Soap",price:650,old:800,cat:"brightening",icon:"&#129396;",img:"",desc:"Premium kojic acid and papaya enzyme soap. Gently exfoliates, reduces hyperpigmentation and leaves skin silky smooth.",badge:"new"},
+  {id:15,name:"Full Body Whitening and Glow Lotion",price:1350,old:1600,cat:"brightening",icon:"&#127774;",img:"",desc:"Intensive brightening body lotion with arbutin, vitamin C and shea butter. Uniform glow from face to toe with SPF 15.",badge:"lim"},
+  {id:16,name:"Dark Spot Corrector Serum",price:1700,old:null,cat:"brightening",icon:"&#128142;",img:"",desc:"Powerful niacinamide and alpha arbutin serum targeting stubborn dark spots, melasma and uneven skin tone in 4 weeks.",badge:""},
+  // BODY SHAPING
+  {id:17,name:"Brazilian Butt Lift Enhancement Cream",price:2800,old:3500,cat:"bodyshaping",icon:"&#128151;",img:"",desc:"Clinically-formulated enhancement cream with Volufiline and maca root. Firms, lifts and enhances natural curves visibly in 4 to 6 weeks.",badge:"best"},
+  {id:18,name:"Curves and Contour Body Sculpting Gel",price:2200,old:null,cat:"bodyshaping",icon:"&#9889;",img:"",desc:"Thermogenic sculpting gel with caffeine and centella. Reduces cellulite, tightens loose skin and contours waist, thighs and hips.",badge:"new"},
+  {id:19,name:"Hip and Butt Enhancement Capsules",price:3200,old:3800,cat:"bodyshaping",icon:"&#128138;",img:"",desc:"Natural herbal capsules with fenugreek, maca and wild yam. Supports hormonal balance for natural feminine curves. 100% plant-based.",badge:"lim"},
+  {id:20,name:"Hot Slimming and Toning Waist Gel",price:1900,old:null,cat:"bodyshaping",icon:"&#127799;",img:"",desc:"Hot gel with ginger, green tea and L-carnitine. Burns stubborn belly fat, tightens skin. Use with massage for best results.",badge:""},
+  // FRAGRANCE
+  {id:21,name:"Empress Rose Parfum 50ml",price:3500,old:4200,cat:"fragrance",icon:"&#127801;",img:"",desc:"Opulent floral parfum with top notes of Bulgarian rose, jasmine and a warm vanilla base. Long-lasting 12-hour wear.",badge:"best"},
+  {id:22,name:"Oud and Amber Luxury Body Mist",price:1200,old:null,cat:"fragrance",icon:"&#10024;",img:"",desc:"Luxurious oud and warm amber body mist inspired by Arabian royalty. Light, long-lasting and irresistible for daily use.",badge:"new"},
+  {id:23,name:"Vanilla and Musk Roll-On Perfume Oil",price:850,old:1000,cat:"fragrance",icon:"&#127800;",img:"",desc:"Sweet vanilla and clean musk alcohol-free roll-on perfume oil. Skin-safe and long-lasting. A soft feminine everyday fragrance.",badge:""},
+  // NAILS
+  {id:24,name:"Nail Growth and Strengthening Serum",price:950,old:null,cat:"nails",icon:"&#128133;",img:"",desc:"Biotin and keratin serum that strengthens brittle nails, promotes fast growth and prevents breakage. Visible results in 2 weeks.",badge:"new"},
+  {id:25,name:"Empress Gel Nail Polish Set 12pc",price:2100,old:2600,cat:"nails",icon:"&#127912;",img:"",desc:"Professional gel nail polish set in 12 gorgeous long-lasting shades. Chip-resistant high-gloss finish for up to 3 weeks.",badge:"best"},
+  {id:26,name:"Cuticle Oil and Hand Repair Cream",price:750,old:null,cat:"nails",icon:"&#127807;",img:"",desc:"Nourishing jojoba and vitamin E cuticle oil with a rich hand repair cream. Softens, heals and protects daily.",badge:""}
+];
+var cart=[],curFilter='all',wishlist=[],pendingImg='';
+
+(function(){
+  var its=["Free Delivery on Orders over KSh 5,000","Authentic BF Suma Products","Order via WhatsApp","100% Genuine Beauty Products","Luxury Skincare Wellness Makeup","Nairobi and Countrywide Delivery","Glow Like an Empress","Real Results Real Royalty","M-Pesa Payment Coming Soon"];
+  var d=its.concat(its);
+  document.getElementById('ticker').innerHTML=d.map(function(t){return'<div class="t-item"><div class="t-dot"></div><span>'+t+'</span></div>';}).join('');
+})();
+
+var WAS='<span style="font-size:9px;letter-spacing:1px;font-weight:700;color:#25D366;white-space:nowrap;">WhatsApp Us Now</span>';
+
+function renderProds(f){
+  f=f||'all';
+  var list=f==='all'?prods:prods.filter(function(p){return p.cat===f;});
+  var cl={skincare:'Skincare',wellness:'Wellness',haircare:'Hair and Body',makeup:'Makeup',brightening:'Brightening',bodyshaping:'Body Shaping',fragrance:'Fragrance',nails:'Nails'};
+  var bm={best:'<div class="cbdg bbest">Best Seller</div>',lim:'<div class="cbdg blim">Limited</div>',new:'<div class="cbdg bnew">New</div>'};
+  document.getElementById('prodGrid').innerHTML=list.map(function(p){
+    return '<div class="card">'+(p.badge&&bm[p.badge]?bm[p.badge]:'')+
+    '<div class="cimg">'+(p.img?'<img src="'+p.img+'" alt="'+p.name+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"><div class="cph" style="display:none"><div class="cbr">Empress Leah Beauty</div><div class="cic">'+p.icon+'</div></div>':'<div class="cph"><div class="cbr">Empress Leah Beauty</div><div class="cic">'+p.icon+'</div></div>')+'</div>'+
+    '<div class="cbody"><div class="ccat">'+(cl[p.cat]||p.cat)+'</div><div class="cnm">'+p.name+'</div><div class="cdesc">'+p.desc+'</div>'+
+    '<div class="cprow"><span class="cprice">KSh '+p.price.toLocaleString()+'</span>'+(p.old?'<span class="cold">KSh '+p.old.toLocaleString()+'</span>':'')+'</div>'+
+    '<div class="cacts"><button class="btn-add" onclick="addToCart('+p.id+')">Add to Cart</button>'+
+    '<button class="btn-wish'+(wishlist.indexOf(p.id)>=0?' wl':'')+'" onclick="toggleWish('+p.id+',this)">&#9825;</button>'+
+    '<button class="btn-wa" onclick="orderWA(\''+p.name.replace(/'/g,"\\'")+'\',' +p.price+')">'+WAS+'</button></div></div></div>';
+  }).join('');
+}
+
+function renderSlider(){
+  var featured=prods.filter(function(p){return p.badge==='best';}).concat(prods.filter(function(p){return p.badge!=='best';})).slice(0,8);
+  var cl={skincare:'Skincare',wellness:'Wellness',haircare:'Hair and Body',makeup:'Makeup',brightening:'Brightening',bodyshaping:'Body Shaping',fragrance:'Fragrance',nails:'Nails'};
+  var track=document.getElementById('slTrack');
+  var dots=document.getElementById('slDots');
+  if(!track||!dots)return;
+  track.innerHTML=featured.map(function(p){
+    return '<div class="sl-card">'+
+    '<div class="sl-card-img">'+(p.img?'<img src="'+p.img+'" alt="'+p.name+'" onerror="this.style.display=\'none\'">'+'':'')+'<span style="'+(p.img?'display:none':'')+'">'+p.icon+'</span></div>'+
+    '<div class="sl-card-body">'+
+    '<div class="sl-card-cat">'+(cl[p.cat]||p.cat)+'</div>'+
+    '<div class="sl-card-name">'+p.name+'</div>'+
+    '<div class="sl-card-price">KSh '+p.price.toLocaleString()+'</div>'+
+    '<button class="sl-card-btn" onclick="addToCart('+p.id+')">Add to Cart</button>'+
+    '</div></div>';
+  }).join('');
+  var visCount=Math.max(1,Math.floor((window.innerWidth-56)/230));
+  var maxIdx=Math.max(0,featured.length-visCount);
+  dots.innerHTML=Array.from({length:maxIdx+1},function(_,i){return'<button class="sl-dot'+(i===0?' on':'')+'" onclick="slGo('+i+')"></button>';}).join('');
+}
+
+var slIdx=0;
+function slGo(i){
+  var track=document.getElementById('slTrack');
+  var cards=track.querySelectorAll('.sl-card');
+  var visCount=Math.max(1,Math.floor((window.innerWidth-56)/230));
+  var maxIdx=Math.max(0,cards.length-visCount);
+  slIdx=Math.max(0,Math.min(i,maxIdx));
+  track.style.transform='translateX(-'+(slIdx*230)+'px)';
+  document.querySelectorAll('.sl-dot').forEach(function(d,j){d.classList.toggle('on',j===slIdx);});
+}
+function slNext(){var track=document.getElementById('slTrack');var cards=track.querySelectorAll('.sl-card');var visCount=Math.max(1,Math.floor((window.innerWidth-56)/230));var max=Math.max(0,cards.length-visCount);slGo(slIdx>=max?0:slIdx+1);}
+function slPrev(){var track=document.getElementById('slTrack');var cards=track.querySelectorAll('.sl-card');var visCount=Math.max(1,Math.floor((window.innerWidth-56)/230));var max=Math.max(0,cards.length-visCount);slGo(slIdx<=0?max:slIdx-1);}
+setInterval(slNext,4000);
+
+function doFilter(f,btn){curFilter=f;document.querySelectorAll('.flt').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');renderProds(f);}
+function toggleWish(id,btn){if(wishlist.indexOf(id)>=0){wishlist=wishlist.filter(function(x){return x!==id;});btn.classList.remove('wl');showToast('Removed from wishlist');}else{wishlist.push(id);btn.classList.add('wl');showToast('Added to wishlist');}document.getElementById('wlCount').textContent=wishlist.length;wishlist.length>0?document.getElementById('wlInd').classList.add('show'):document.getElementById('wlInd').classList.remove('show');}
+function addToCart(id){var p=prods.find(function(x){return x.id===id;});if(!p)return;var ex=cart.find(function(x){return x.id===id;});if(ex)ex.qty++;else cart.push(Object.assign({},p,{qty:1}));updateCart();showToast('Added to cart!');}
+function removeFromCart(id){cart=cart.filter(function(x){return x.id!==id;});updateCart();}
+function changeQty(id,d){var i=cart.find(function(x){return x.id===id;});if(!i)return;i.qty+=d;if(i.qty<=0)removeFromCart(id);else updateCart();}
+function updateCart(){
+  var cnt=cart.reduce(function(a,b){return a+b.qty;},0);
+  document.getElementById('cartBadge').textContent=cnt;
+  var w=document.getElementById('cartItems'),f=document.getElementById('cartFtr');
+  if(!cart.length){w.innerHTML='<div class="cart-empty">Your cart is empty.<br><br>Add some empress essentials!</div>';f.style.display='none';return;}
+  w.innerHTML=cart.map(function(i){return'<div class="cart-line">'+(i.img?'<img class="cl-img" src="'+i.img+'" alt="'+i.name+'" onerror="this.outerHTML=\'<div class=cl-ic>'+i.icon+'</div>\'">'
+  :'<div class="cl-ic">'+i.icon+'</div>')+'<div class="cl-info"><div class="cl-name">'+i.name+'</div><div class="cl-price">KSh '+(i.price*i.qty).toLocaleString()+'</div><div class="cl-qty"><button onclick="changeQty('+i.id+',-1)">&#8722;</button><span>'+i.qty+'</span><button onclick="changeQty('+i.id+',1)">+</button></div></div><button class="cl-rm" onclick="removeFromCart('+i.id+')">&#10005;</button></div>';}).join('');
+  document.getElementById('cartAmt').textContent='KSh '+cart.reduce(function(a,b){return a+b.price*b.qty;},0).toLocaleString();
+  f.style.display='block';
+}
+function toggleCart(){document.getElementById('cartPanel').classList.toggle('on');document.getElementById('cartOv').classList.toggle('on');}
+function checkoutWA(){
+  var count=cart.reduce(function(a,b){return a+b.qty;},0);
+  var total=cart.reduce(function(a,b){return a+b.price*b.qty;},0);
+  var lines=cart.map(function(i){
+    return encodeURIComponent('  - '+i.name+' (x'+i.qty+') = KSh '+(i.price*i.qty).toLocaleString());
+  }).join('%0A');
+  var msg='Hello+Empress+Leah+Beauty!+%F0%9F%91%91%0A%0A'
+    +'I+would+like+to+place+the+following+order%3A%0A%0A'
+    +lines
+    +'%0A%0A'
+    +encodeURIComponent('================================')
+    +'%0A'
+    +encodeURIComponent('Total Items : '+count)
+    +'%0A'
+    +encodeURIComponent('TOTAL AMOUNT: KSh '+total.toLocaleString())
+    +'%0A'
+    +encodeURIComponent('================================')
+    +'%0A%0A'
+    +'Please+confirm+availability+and+share+M-Pesa+payment+details.+Thank+you!+%F0%9F%8C%9F';
+  window.open('https://wa.me/254112293380?text='+msg,'_blank');
+}
+function orderWA(n,p){window.open('https://wa.me/254112293380?text=Hello%2C+I+want+to+order+'+encodeURIComponent(n)+'+KSh+'+p.toLocaleString()+'+from+Empress+Leah+Beauty.+Please+assist+me.','_blank');}
+function openMpesa(){document.getElementById('mpov').classList.add('on');}
+function closeMpesa(){document.getElementById('mpov').classList.remove('on');}
+function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('on');},2800);}
+window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50);});
+window.addEventListener('DOMContentLoaded',function(){loadData();setTimeout(function(){var l=document.getElementById('loader');if(l)l.classList.add('gone');renderProds();renderSlider();renderReviews();},800);});
+setTimeout(function(){var l=document.getElementById('loader');if(l)l.classList.add('gone');},1500);
+function sendContact(){var n=document.getElementById('cN').value,e=document.getElementById('cE').value,s=document.getElementById('cS').value,m=document.getElementById('cM').value;if(!n||!e||!m){showToast('Please fill in all fields');return;}window.open('https://wa.me/254112293380?text=Hello%2C+my+name+is+'+encodeURIComponent(n)+'+'+encodeURIComponent(e)+'.+Subject%3A+'+encodeURIComponent(s)+'%0A%0A'+encodeURIComponent(m),'_blank');showToast('Opening WhatsApp...');}
+function openLegal(w){document.getElementById(w==='tc'?'tcOv':'ppOv').classList.add('on');}
+function closeLegal(w){document.getElementById(w==='tc'?'tcOv':'ppOv').classList.remove('on');}
+function openLogin(e){e.preventDefault();document.getElementById('loginOv').classList.add('on');setTimeout(function(){document.getElementById('aPass').focus();},300);}
+function closeLogin(){document.getElementById('loginOv').classList.remove('on');document.getElementById('aPass').value='';}
+function doLogin(){if(document.getElementById('aPass').value==='empress2025'){closeLogin();document.getElementById('adminOv').classList.add('on');renderAdmin();}else showToast('Incorrect password');}
+function closeAdmin(){document.getElementById('adminOv').classList.remove('on');}
+function renderAdmin(){document.getElementById('aList').innerHTML=prods.map(function(p){return'<div class="a-prod">'+(p.img?'<img class="a-prod-img" src="'+p.img+'" alt="'+p.name+'" onerror="this.outerHTML=\'<div class=a-prod-ic>'+p.icon+'</div>\'">'
+:'<div class="a-prod-ic">'+p.icon+'</div>')+'<div class="a-inf"><div class="a-nm">'+p.name+'</div><div class="a-pr">KSh '+p.price.toLocaleString()+' - '+p.cat+'</div></div><div class="a-acts"><button class="aedit" onclick="editP('+p.id+')">Edit Price</button><button class="aimg" onclick="editImg('+p.id+')">Edit Image</button><button class="adel" onclick="delP('+p.id+')">Delete</button></div></div>';}).join('');}
+function editP(id){var p=prods.find(function(x){return x.id===id;});var np=prompt('New price for '+p.name+':',p.price);if(np&&!isNaN(np)){p.price=+np;renderAdmin();renderProds(curFilter);saveData();showToast('Price updated');}}
+function editImg(id){var p=prods.find(function(x){return x.id===id;});var u=prompt('New image URL for '+p.name+' (blank to clear):',p.img||'');if(u!==null){p.img=u.trim();renderAdmin();renderProds(curFilter);saveData();showToast('Image updated');}}
+function delP(id){if(!confirm('Delete this product?'))return;prods=prods.filter(function(x){return x.id!==id;});renderAdmin();renderProds(curFilter);renderSlider();saveData();showToast('Product removed');}
+/* aSwitch: see below */
+function handleImgUpload(input){var f=input.files[0];if(!f)return;var r=new FileReader();r.onload=function(e){pendingImg=e.target.result;document.getElementById('iprev').src=pendingImg;document.getElementById('ipw').classList.add('show');document.getElementById('ap_imgUrl').value='';showToast('Image ready - click Add Product to save');};r.readAsDataURL(f);}
+function handleImgUrl(v){if(!v){document.getElementById('ipw').classList.remove('show');pendingImg='';return;}pendingImg=v;document.getElementById('iprev').src=v;document.getElementById('ipw').classList.add('show');document.getElementById('ap_imgFile').value='';}
+function addProd(){
+  var n=document.getElementById('ap_n').value.trim();
+  var p=+document.getElementById('ap_p').value;
+  if(!n||!p){showToast('Name and price are required');return;}
+  var op=+document.getElementById('ap_op').value||null;
+  var c=document.getElementById('ap_c').value;
+  var d=document.getElementById('ap_d').value.trim();
+  var b=document.getElementById('ap_b').value;
+  var e=document.getElementById('ap_e').value.trim()||'&#10024;';
+  var imgUrl=document.getElementById('ap_imgUrl').value.trim();
+  var img=pendingImg||imgUrl||'';
+  var nid=prods.length?Math.max.apply(null,prods.map(function(x){return x.id;})):1;
+  prods.push({id:nid+1,name:n,price:p,old:op,cat:c,desc:d,badge:b,icon:e,img:img});
+  renderAdmin();renderProds(curFilter);renderSlider();saveData();showToast('Product added!');
+  document.getElementById('ap_n').value='';document.getElementById('ap_p').value='';
+  document.getElementById('ap_op').value='';document.getElementById('ap_d').value='';
+  document.getElementById('ap_e').value='&#10024;';document.getElementById('ap_imgUrl').value='';
+  document.getElementById('ap_imgFile').value='';document.getElementById('ipw').classList.remove('show');
+  pendingImg='';
+}
+
+/* ══ REVIEWS DATA ══ */
+var reviews=[
+  {id:1,stars:5,text:"The Youth Essence Facial Cream is absolutely divine. My skin has never looked this radiant. I can see visible results in just two weeks, worth every shilling.",author:"Amina W., Nairobi"},
+  {id:2,stars:5,text:"Ordered via WhatsApp and received my Feminergy Capsules the next day. The energy boost is incredible. I feel like a completely new woman. Highly recommend.",author:"Grace N., Mombasa"},
+  {id:3,stars:5,text:"Finally found products that truly understand African skin. The BF Suma skincare range transformed my complexion. No more dark spots and I glow every day.",author:"Fatuma A., Kisumu"},
+  {id:4,stars:5,text:"Customer service is exceptional. They guided me to the perfect products. The quality is outstanding, truly a luxury experience at an affordable price.",author:"Cynthia M., Nairobi"}
+];
+function starsHtml(n){var s='';for(var i=0;i<n;i++)s+='&#9733;';return s;}
+function renderReviews(){
+  var g=document.getElementById('revGrid');
+  if(!g)return;
+  if(!reviews.length){g.innerHTML='<p style="color:var(--tx3);text-align:center;padding:40px 0;font-family:Playfair Display,serif;font-style:italic;">No reviews yet. Be the first empress to share!</p>';return;}
+  g.innerHTML=reviews.map(function(r){
+    return '<div class="rev"><div class="rev-stars">'+starsHtml(r.stars)+'</div><p class="rev-text">"'+r.text+'"</p><div class="rev-auth">'+r.author+'</div></div>';
+  }).join('');
+}
+function renderAdminReviews(){
+  var el=document.getElementById('aRevList');
+  if(!el)return;
+  if(!reviews.length){el.innerHTML='<p style="color:var(--tx3);padding:12px 0;">No reviews yet. Add the first one below.</p>';return;}
+  el.innerHTML=reviews.map(function(r){
+    return '<div class="a-prod" style="flex-wrap:wrap;gap:8px;">'+
+      '<div class="a-inf" style="flex:1;min-width:200px;">'+
+        '<div class="a-nm" style="font-size:12px;color:var(--rose);margin-bottom:3px;">'+starsHtml(r.stars)+'&nbsp;&nbsp;'+r.author+'</div>'+
+        '<div style="font-size:12px;color:var(--tx3);line-height:1.5;">'+(r.text.length>90?r.text.substring(0,90)+'...':r.text)+'</div>'+
+      '</div>'+
+      '<button class="adel" onclick="delReview('+r.id+')" style="align-self:center;">Delete</button>'+
+    '</div>';
+  }).join('');
+}
+function addReview(){
+  var auth=document.getElementById('rv_auth').value.trim();
+  var text=document.getElementById('rv_text').value.trim();
+  var stars=+document.getElementById('rv_stars').value;
+  if(!auth||!text){showToast('Please enter customer name and review text');return;}
+  var nid=reviews.length?Math.max.apply(null,reviews.map(function(r){return r.id;}))+1:1;
+  reviews.push({id:nid,stars:stars,text:text,author:auth});
+  renderAdminReviews();renderReviews();saveData();
+  document.getElementById('rv_auth').value='';document.getElementById('rv_text').value='';
+  showToast('Review added!');
+}
+function delReview(id){
+  if(!confirm('Delete this review?'))return;
+  reviews=reviews.filter(function(r){return r.id!==id;});
+  renderAdminReviews();renderReviews();saveData();showToast('Review deleted');
+}
+
+/* ══ ASWICH WITH REVIEWS TAB ══ */
+function aSwitch(tab,btn){
+  document.querySelectorAll('.a-tab').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  document.getElementById('aList').style.display=tab==='list'?'block':'none';
+  document.getElementById('aAdd').style.display=tab==='add'?'block':'none';
+  var rv=document.getElementById('aRevs');
+  if(rv)rv.style.display=tab==='reviews'?'block':'none';
+  if(tab==='reviews')renderAdminReviews();
+}
+
+/* ══ PERSISTENT STORAGE — auto-save on every change ══ */
+function saveData(){
+  try{
+    localStorage.setItem('elb_prods',JSON.stringify(prods));
+    localStorage.setItem('elb_reviews',JSON.stringify(reviews));
+  }catch(e){
+    showToast('Storage full - try using image URLs instead of uploads');
+    console.warn('save failed:',e);
+  }
+}
+function loadData(){
+  try{
+    var sp=localStorage.getItem('elb_prods');
+    if(sp){var parsed=JSON.parse(sp);if(parsed&&parsed.length)prods=parsed;}
+    var sr=localStorage.getItem('elb_reviews');
+    if(sr){var parsedr=JSON.parse(sr);if(parsedr&&parsedr.length)reviews=parsedr;}
+  }catch(e){console.warn('loadData failed:',e);}
+}
+
+</script>
+</body>
+</html>
